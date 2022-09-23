@@ -8,6 +8,7 @@ import java.util.Locale;
 public class algo {
 
 
+// 요일 구하기
     public static String solutionOne(int a, int b) {
 
         String answer = "";
@@ -18,6 +19,7 @@ public class algo {
     }
 
 
+// 나누어 떨어지는 숫자 배열
     public static int[] solutionTwo(int[] arr, int divisor) {
         int[] answer = {};
         ArrayList<Integer> a1 = new ArrayList<Integer>();
@@ -43,6 +45,7 @@ public class algo {
     }
 
 
+// 수박수박수박수박수박수?
     public static String solutionThree(int n) {
         String answer = "";
 
@@ -60,6 +63,7 @@ public class algo {
     }
 
 
+// 완주하지 못한 선수
     public static String solutionFour(String[] participant, String[] completion) {
         String answer = "";
 
@@ -81,6 +85,7 @@ public class algo {
     }
 
 
+// 이상한 문자 만들기
     public static String solutionFive(String s) {
         String answer = "";
         int idx = 0;
@@ -112,6 +117,7 @@ public class algo {
     }
 
 
+// 자릿수 더하기
     public static int solutionSix(int n) {
         int answer = 0;
 
@@ -133,6 +139,7 @@ public class algo {
     }
 
 
+// 자연수 뒤집기
     public static int[] solutionSeven(long n) {
         //        n은 10,000,000,000이하인 자연수입니다. 문제 조건
         //        long 변수명1 = 12147483647;    int 범위 -2,147,483,648 ~ 2,147,483,647
@@ -176,6 +183,7 @@ public class algo {
     }
 
 
+// 내림차순으로 배치하기
     public static long solutionEight(long n) {
         long answer = 0;
 
@@ -269,6 +277,7 @@ public class algo {
 //3은 양의 정수의 제곱이 아니므로, -1을 리턴합니다.
 
 
+// 정수 제곱근 판별
 //    Math.sqrt 제곱근, Math.pow 제곱, intValue() 정수 숫자로 변환
     public static long solutionNine(long n) {
         long answer = 0;
@@ -277,12 +286,8 @@ public class algo {
         return answer;
     }
 
-//    public static long solutionNine(long n) {
-//        Double sqrt = Math.sqrt(n);
-//        if(sqrt == sqrt.intValue()){
-//            return (long)Math.pow(sqrt + 1, 2);
-//        } else return -1;
-//    }
+
+//    제일 작은 수 제거하기
 
 
 
