@@ -7,7 +7,7 @@ public class algo {
 
 
     // 요일 구하기
-    public static String solutionOne(int a, int b) {
+    public String solutionOne(int a, int b) {
 
         String answer = "";
         LocalDate date = LocalDate.of(2016, a, b);
@@ -18,7 +18,7 @@ public class algo {
 
 
     // 나누어 떨어지는 숫자 배열
-    public static int[] solutionTwo(int[] arr, int divisor) {
+    public int[] solutionTwo(int[] arr, int divisor) {
         int[] answer = {};
         ArrayList<Integer> a1 = new ArrayList<Integer>();
 
@@ -44,7 +44,7 @@ public class algo {
 
 
     // 수박수박수박수박수박수?
-    public static String solutionThree(int n) {
+    public String solutionThree(int n) {
         String answer = "";
 
         for (int i = 0; i < n; i++) {
@@ -62,7 +62,7 @@ public class algo {
 
 
     // 완주하지 못한 선수
-    public static String solutionFour(String[] participant, String[] completion) {
+    public String solutionFour(String[] participant, String[] completion) {
         String answer = "";
 
 //        정렬시켜서 인덱스를 동일하게 맞춰준다
@@ -84,7 +84,7 @@ public class algo {
 
 
     // 이상한 문자 만들기
-    public static String solutionFive(String s) {
+    public String solutionFive(String s) {
         String answer = "";
         int idx = 0;
 
@@ -116,7 +116,7 @@ public class algo {
 
 
     // 자릿수 더하기
-    public static int solutionSix(int n) {
+    public int solutionSix(int n) {
         int answer = 0;
 
         while (n != 0) {
@@ -138,7 +138,7 @@ public class algo {
 
 
     // 자연수 뒤집기
-    public static int[] solutionSeven(long n) {
+    public int[] solutionSeven(long n) {
         //        n은 10,000,000,000이하인 자연수입니다. 문제 조건
         //        long 변수명1 = 12147483647;    int 범위 -2,147,483,648 ~ 2,147,483,647
         //int 변수명2
@@ -161,7 +161,6 @@ public class algo {
             // 5) 1 % 10 = 1
             answer[cnt] = (int) (n % 10);
             // c++ 타임값으로 랜덤값 뽑아낼 때처럼 사용
-
             // 12345 = 1234
             // 1234 = 123
             // 123 = 12
@@ -182,7 +181,7 @@ public class algo {
 
 
     // 내림차순으로 배치하기
-    public static long solutionEight(long n) {
+    public long solutionEight(long n) {
         long answer = 0;
 
 //        버블 정렬
@@ -250,7 +249,7 @@ public class algo {
 
     // 정수 제곱근 판별
 //    Math.sqrt 제곱근, Math.pow 제곱, intValue() 정수 숫자로 변환
-    public static long solutionNine(long n) {
+    public long solutionNine(long n) {
         long answer = 0;
         Double x = Math.sqrt(n);
         answer = x == x.intValue() ? (long) Math.pow(x + 1, 2) : -1;
@@ -271,7 +270,7 @@ public class algo {
 //[10]	[-1]
 
     //    제일 작은 수 제거하기
-    public static int[] solutionTen(int[] arr) {
+    public int[] solutionTen(int[] arr) {
         int[] answer = new int[arr.length - 1];
         if (arr.length <= 1) {
             answer = new int[]{-1};
@@ -321,7 +320,7 @@ public class algo {
 //626331은 500번을 시도해도 1이 되지 못하므로 -1을 리턴해야 합니다.
 
     //  콜라츠 추측
-    public static int solution1(int num) {
+    public int solution1(int num) {
         int answer = 0;
         int count = 0;
 
@@ -373,7 +372,7 @@ public class algo {
 //13의 모든 자릿수의 합은 4입니다. 13은 4로 나누어 떨어지지 않으므로 13은 하샤드 수가 아닙니다.
 
     //    하샤드 수
-    public static boolean solution2(int x) {
+    public boolean solution2(int x) {
         boolean answer = true;
 
         int startNumber = x;
@@ -426,37 +425,37 @@ public class algo {
 //125	11122	22111	229
 //따라서 229를 return 해야 합니다.
 
-//    3진법 뒤집기
-public static int solution3(int n) {
-    // 3진법 변환의 나머지들을 취하는 변수.
-    String str = "";
-    // 3진법 -> 10진법에 필요한 변수.
-    int temp = 0;
-    // 10진법으로 다시 바꾼 변수.
-    int answer = 0;
-    // n/3의 몫이 0이 될 때 까지 반복.
-    while(n / 3 != 0){
-        // 나머지를 취한 후, n을 갱신.
-        str+=n%3;
-        System.out.printf("mok:[%d] remains:[%d]\n",n,n%3);
-        n/=3;
-    }
-    // 5. 몫이 0일 때 반복문을 나왔으므로, 마지막 나머지는 n자체가 된다.
-    str+=String.valueOf(n);
-    System.out.printf("notation change complete:[%s]\n", str);
+    //    3진법 뒤집기
+    public int solution3(int n) {
+        // 3진법 변환의 나머지들을 취하는 변수.
+        String str = "";
+        // 3진법 -> 10진법에 필요한 변수.
+        int temp = 0;
+        // 10진법으로 다시 바꾼 변수.
+        int answer = 0;
+        // n/3의 몫이 0이 될 때 까지 반복.
+        while (n / 3 != 0) {
+            // 나머지를 취한 후, n을 갱신.
+            str += n % 3;
+            System.out.printf("mok:[%d] remains:[%d]\n", n, n % 3);
+            n /= 3;
+        }
+        // 5. 몫이 0일 때 반복문을 나왔으므로, 마지막 나머지는 n자체가 된다.
+        str += String.valueOf(n);
+        System.out.printf("notation change complete:[%s]\n", str);
 
-    // 6. 변환한 3진법을 맨 뒤에서부터 10진법으로 변환 시작.
-    for(int i = str.length()-1;i>=0;i--){
-        // for문으로 배열을 거꾸로 돌려서 뒤집은 것처럼 10진법으로 변화시킨다.
-        // 해당 자릿수 * 3의 제곱수를 누적해간다.
-        answer+=((str.charAt(i) - '0') * (int)Math.pow(3,temp));
-        temp++;
-    }
+        // 6. 변환한 3진법을 맨 뒤에서부터 10진법으로 변환 시작.
+        for (int i = str.length() - 1; i >= 0; i--) {
+            // for문으로 배열을 거꾸로 돌려서 뒤집은 것처럼 10진법으로 변화시킨다.
+            // 해당 자릿수 * 3의 제곱수를 누적해간다.
+            answer += ((str.charAt(i) - '0') * (int) Math.pow(3, temp));
+            temp++;
+        }
         System.out.printf("notation reverse + decimal change complete:[%s]\n", answer);
 
-    // 7. 10진법으로 변환 완료.
-    return answer;
-}
+        // 7. 10진법으로 변환 완료.
+        return answer;
+    }
 //    Integer 서비스 메소드 써서 자주 쓰는 진법 쉽게 변환하는 법
 //    N진법 -> 10진법
 //      Integer.parseInt(i, N);
@@ -473,7 +472,6 @@ public static int solution3(int n) {
 //        }
 //        a = new StringBuilder(a).reverse().toString();
 //        return Integer.parseInt(a,3);
-
 
 
 //    문제 설명
@@ -499,28 +497,27 @@ public static int solution3(int n) {
 //    이러면 기존 명함의 가로 세로 상태는 아무 의미가 없어진다 그러면 그냥 정리된 가로 세로 필드 중 가장 큰 값을 뽑아내기만 하면 된다
 //    현재 상태에서 다른 명함과의 가로 세로를 비교해 더 큰 값들을 뽑아내 다른 곳에 담아둔다
 //    명함의 수만큼 비교와 저장을 반복한다
-    
+
 //    최소직사각형
 
-    public static int solution4(int[][] sizes) {
+    public int solution4(int[][] sizes) {
 //        가장 큰 가로 값을 대입할 변수
-        int max_v=0;
+        int max_v = 0;
 //        가장 큰 세로 값을 대입할 변수
-        int max_h=0;
-        for(int i=0;i<sizes.length;i++){
+        int max_h = 0;
+        for (int i = 0; i < sizes.length; i++) {
 //            같은 카드의 가로 세로중 더 큰 값을 저장한다
-            int v=Math.max(sizes[i][0],sizes[i][1]);
+            int v = Math.max(sizes[i][0], sizes[i][1]);
 //            같은 카드의 가로 세로중 더 작은 값을 저장한다
-            int h=Math.min(sizes[i][0],sizes[i][1]);
+            int h = Math.min(sizes[i][0], sizes[i][1]);
 //            현재 상태에서 사실상 카드를 더 긴 쪽을 가로로, 짧은 쪽을 세로로 하기로 뒤집어서 정리한 상태 
 //            위에서 저장된 더 큰 값을 현재의 가장 큰 값과 비교하여 더 큰 값을 가로로 저장한다
-            max_v=Math.max(max_v,v);
+            max_v = Math.max(max_v, v);
 //            위에서 저장된 더 작은 값을 현재의 가장 큰 값과 비교하여 더 큰 값을 세로로 저장한다 (안그러면 지갑 위로 명함이 뚫고나온다)
-            max_h=Math.max(max_h,h);
+            max_h = Math.max(max_h, h);
         }
-        return max_v*max_h;
+        return max_v * max_h;
     }
-
 
 
 //문제 설명
@@ -544,15 +541,15 @@ public static int solution3(int n) {
 //문제의 예시와 같습니다.
 
     //    같은 숫자는 싫어
-    public static int[] solution5(int[] arr) {
+    public int[] solution5(int[] arr) {
         if (arr.length == 0 || arr.length == 1)
             return arr;
         ArrayList<Integer> list = new ArrayList<>();
 //        0번 인덱스에 무조건 넣은 뒤 그 다음 인덱스부터 비교하려면?
 //        처음 비교를 무조건 넘기는 중복 체크 변수에 -1을 넣어서 만든다
         int dupCheck = -1;
-        for (int i = 0; i < arr.length; i++){
-            if (arr[i] != dupCheck){
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != dupCheck) {
                 list.add(arr[i]);
                 dupCheck = arr[i];
             }
@@ -597,19 +594,19 @@ public static int solution3(int n) {
 //따라서 [2,5,7,9,12] 를 return 해야 합니다.
 
     //    두 개 뽑아서 더하기
-    public static int[] solution6(int[] numbers) {
+    public int[] solution6(int[] numbers) {
         ArrayList<Integer> arr = new ArrayList<>();
-        for (int i=0; i<numbers.length; i++){
+        for (int i = 0; i < numbers.length; i++) {
 //            같은 인덱스에 있는 값 끼리 더해지지 않게 해야 한다 i를 오른쪽으로 한칸씩 움직이거나 왼쪽으로 한칸씩 움직이게 만듬
             for (int j = 0; j < i; j++) {
-                if (!arr.contains(numbers[i] + numbers[j])){
+                if (!arr.contains(numbers[i] + numbers[j])) {
                     arr.add(numbers[i] + numbers[j]);
                 }
             }
         }
         Collections.sort(arr);
         int[] answer = new int[arr.size()];
-        for (int i = 0; i<answer.length; i++) {
+        for (int i = 0; i < answer.length; i++) {
             answer[i] = arr.get(i);
         }
         return answer;
@@ -670,7 +667,7 @@ public static int solution3(int n) {
 
 
     //    로또의 최고 순위와 최저 순위
-    public static int[] solution7(int[] lottos, int[] win_nums) {
+    public int[] solution7(int[] lottos, int[] win_nums) {
         int[] answer = new int[2];
         ArrayList<Integer> tempLotto = new ArrayList<>();
         for (int i = 0; i < lottos.length; i++) {
@@ -679,9 +676,9 @@ public static int solution3(int n) {
         int winCount = 0;
         int zeroCount = 0;
         for (int i = 0; i < lottos.length; i++) {
-            if(tempLotto.contains(win_nums[i]))
+            if (tempLotto.contains(win_nums[i]))
                 winCount++;
-            if(tempLotto.get(i) == 0)
+            if (tempLotto.get(i) == 0)
                 zeroCount++;
         }
 
@@ -691,7 +688,7 @@ public static int solution3(int n) {
             return answer;
         }
 
-        switch(winCount+zeroCount){
+        switch (winCount + zeroCount) {
             case 6:
                 answer[0] = 1;
                 break;
@@ -713,7 +710,7 @@ public static int solution3(int n) {
                 break;
         }
 
-        switch(winCount){
+        switch (winCount) {
             case 6:
                 answer[1] = 1;
                 break;
@@ -773,16 +770,16 @@ public static int solution3(int n) {
 //[1,3,2,4,2]	[1,2,3]
 
     //    모의고사
-    public static int[] solution8(int[] answers) {
-        int[] firstPerson = {1,2,3,4,5};
-        int[] secondPerson = {2,1,2,3,2,4,2,5};
-        int[] thirdPerson = {3,3,1,1,2,2,4,4,5,5};
+    public int[] solution8(int[] answers) {
+        int[] firstPerson = {1, 2, 3, 4, 5};
+        int[] secondPerson = {2, 1, 2, 3, 2, 4, 2, 5};
+        int[] thirdPerson = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
         int[] count = new int[3];
 // 정답 1, 3, 2, 4, 2
         for (int i = 0; i < answers.length; i++) {
-            if(answers[i]==firstPerson[i%5]) count[0]++;
-            if(answers[i]==secondPerson[i%8]) count[1]++;
-            if(answers[i]==thirdPerson[i%10]) count[2]++;
+            if (answers[i] == firstPerson[i % 5]) count[0]++;
+            if (answers[i] == secondPerson[i % 8]) count[1]++;
+            if (answers[i] == thirdPerson[i % 10]) count[2]++;
         }
 //      최대 수 구하기
         int maxScore = 0;
@@ -793,7 +790,7 @@ public static int solution3(int n) {
 //      돌아가면서 최대 수와 같으면 가변 배열에 넣어준다
         ArrayList<Integer> topScorePersons = new ArrayList<>();
         for (int i = 0; i < count.length; i++) {
-            if (count[i] == maxScore) topScorePersons.add(i+1);
+            if (count[i] == maxScore) topScorePersons.add(i + 1);
         }
 //      int[] 로 돌려주길 원하므로 변환해준다
         int[] result = new int[topScorePersons.size()];
@@ -826,36 +823,452 @@ public static int solution3(int n) {
 //"abce"와 "abcd", "cdx"의 2번째 인덱스 값은 "c", "c", "x"입니다. 따라서 정렬 후에는 "cdx"가 가장 뒤에 위치합니다.
 // "abce"와 "abcd"는 사전순으로 정렬하면 "abcd"가 우선하므로, 답은 ["abcd", "abce", "cdx"] 입니다.
 
-// 문자열 내 마음대로 정렬하기
-public static String[] solution9(String[] strings, int n) {
-    String[] answer = {};
+    // 문자열 내 마음대로 정렬하기
+    public String[] solution9(String[] strings, int n) {
+        String[] answer = {};
 // sort 해야되니깐 list로 만들어준다
-    ArrayList<String> str = new ArrayList<>();
-    for (int i = 0; i < strings.length; i++)
-        str.add(strings[i].charAt(n) + strings[i]);
+        ArrayList<String> str = new ArrayList<>();
+        for (int i = 0; i < strings.length; i++)
+            str.add(strings[i].charAt(n) + strings[i]);
 //    >> ["sun", "bed", "car"] >> ["usun", "ebed", "acar"] n번째 글자만 가져와서 sort하기 편하게 앞에 붙여버린다
-    Collections.sort(str);
-//    정 to the 렬
+        Collections.sort(str);
+//    정렬
 //    이제 앞에걸 떼줘야 한다 떼는 김에 원하는 리턴 타입으로 돌려준다
-    answer = new String[str.size()];
-    for (int i = 0; i < str.size(); i++) {
-        answer[i] = str.get(i).substring(1);
+        answer = new String[str.size()];
+        for (int i = 0; i < str.size(); i++) {
+            answer[i] = str.get(i).substring(1);
+        }
+        return answer;
     }
-    return answer;
-}
 
+//문제 설명
+//문자열 s에 나타나는 문자를 큰것부터 작은 순으로 정렬해 새로운 문자열을 리턴하는 함수, solution을 완성해주세요.
+//s는 영문 대소문자로만 구성되어 있으며, 대문자는 소문자보다 작은 것으로 간주합니다.
+//
+//제한 사항
+//str은 길이 1 이상인 문자열입니다.
+//입출력 예
+//      s	            return
+//      "Zbcdefg"	    "gfedcbZ"
+
+    //문자열 내림차순으로 배치하기
+    public String solution10(String s) {
+        String answer = "";
+
+        ArrayList<String> str = new ArrayList<>();
+        char[] splitChar = s.toCharArray();
+        for (int i = 0; i < splitChar.length; i++) {
+            str.add(String.valueOf(splitChar[i]));
+        }
+        Collections.sort(str);
+        Collections.reverse(str);
+        for (int i = 0; i < str.size(); i++) {
+            answer += str.get(i);
+        }
+        return answer;
+    }
+
+
+//문제 설명
+//주어진 숫자 중 3개의 수를 더했을 때 소수가 되는 경우의 개수를 구하려고 합니다. 숫자들이 들어있는 배열 nums가 매개변수로 주어질 때,
+// nums에 있는 숫자들 중 서로 다른 3개를 골라 더했을 때 소수가 되는 경우의 개수를 return 하도록 solution 함수를 완성해주세요.
+//
+//제한사항
+//nums에 들어있는 숫자의 개수는 3개 이상 50개 이하입니다.
+//nums의 각 원소는 1 이상 1,000 이하의 자연수이며, 중복된 숫자가 들어있지 않습니다.
+//입출력 예
+//          nums	        result
+//          [1,2,3,4]	    1
+//          [1,2,7,6,4]	    4
+//입출력 예 설명
+//입출력 예 #1
+//[1,2,4]를 이용해서 7을 만들 수 있습니다.
+//
+//입출력 예 #2
+//[1,2,4]를 이용해서 7을 만들 수 있습니다.
+//[1,4,6]을 이용해서 11을 만들 수 있습니다.
+//[2,4,7]을 이용해서 13을 만들 수 있습니다.
+//[4,6,7]을 이용해서 17을 만들 수 있습니다.
+
+    //소수 만들기
+    public int solution11(int[] nums) {
+        int answer = 0;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                for (int k = 0; k < j; k++) {
+                    if (sosu(nums[i] + nums[j] + nums[k]) == 1) {
+                        answer++;
+                    }
+                }
+            }
+        }
+        return answer;
+    }
+
+    //    소수 판별식 만들기
+    public int sosu(int num) {
+        if (0 == num || num == 1) return 0;
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) return 0;
+        }
+        return 1;
+    }
+
+
+//    네오와 프로도가 숫자놀이를 하고 있습니다. 네오가 프로도에게 숫자를 건넬 때 일부 자릿수를 영단어로 바꾼 카드를 건네주면 프로도는 원래 숫자를 찾는 게임입니다.
+//
+//다음은 숫자의 일부 자릿수를 영단어로 바꾸는 예시입니다.
+//
+//  1478 → "one4seveneight"
+//  234567 → "23four5six7"
+//  10203 → "1zerotwozero3"
+//이렇게 숫자의 일부 자릿수가 영단어로 바뀌어졌거나, 혹은 바뀌지 않고 그대로인 문자열 s가 매개변수로 주어집니다. s가 의미하는 원래 숫자를 return 하도록 solution 함수를 완성해주세요.
+//
+//참고로 각 숫자에 대응되는 영단어는 다음 표와 같습니다.
+//
+//  숫자	영단어
+//  0	zero
+//  1	one
+//  2	two
+//  3	three
+//  4	four
+//  5	five
+//  6	six
+//  7	seven
+//  8	eight
+//  9	nine
+//제한사항
+//1 ≤ s의 길이 ≤ 50
+//s가 "zero" 또는 "0"으로 시작하는 경우는 주어지지 않습니다.
+//return 값이 1 이상 2,000,000,000 이하의 정수가 되는 올바른 입력만 s로 주어집니다.
+//입출력 예
+//s	result
+//"one4seveneight"	1478
+//"23four5six7"	234567
+//"2three45sixseven"	234567
+//"123"	123
+//입출력 예 설명
+//입출력 예 #1
+//
+//문제 예시와 같습니다.
+//입출력 예 #2
+//
+//문제 예시와 같습니다.
+//입출력 예 #3
+//
+//"three"는 3, "six"는 6, "seven"은 7에 대응되기 때문에 정답은 입출력 예 #2와 같은 234567이 됩니다.
+//입출력 예 #2와 #3과 같이 같은 정답을 가리키는 문자열이 여러 가지가 나올 수 있습니다.
+//입출력 예 #4
+//
+//s에는 영단어로 바뀐 부분이 없습니다.
+//제한시간 안내
+//정확성 테스트 : 10초
+
+    //    숫자 문자열과 영단어
+    public int solution12(String s) {
+        int answer = 0;
+//        해쉬맵 한번 써봐야지
+        HashMap<Integer, String> numberToString = new HashMap<>();
+//        귀찮은 녀석들 모아서 넣어주고
+        String[] sNumber = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+//        해쉬맵에 순번대로 넣는다
+        for (int i = 0; i < sNumber.length; i++) {
+            numberToString.put(i, sNumber[i]);
+        }
+        for (int i = 0; i < numberToString.size(); i++) {
+            s = s.replace(numberToString.get(i), Integer.toString(i));
+        }
+        answer = Integer.parseInt(s);
+        return answer;
+    }
+
+//문제 설명
+// 어떤 문장의 각 알파벳을 일정한 거리만큼 밀어서 다른 알파벳으로 바꾸는 암호화 방식을 시저 암호라고 합니다.
+// 예를 들어 "AB"는 1만큼 밀면 "BC"가 되고, 3만큼 밀면 "DE"가 됩니다. "z"는 1만큼 밀면 "a"가 됩니다.
+// 문자열 s와 거리 n을 입력받아 s를 n만큼 민 암호문을 만드는 함수, solution을 완성해 보세요.
+//
+//제한 조건
+//공백은 아무리 밀어도 공백입니다.
+//s는 알파벳 소문자, 대문자, 공백으로만 이루어져 있습니다.
+//s의 길이는 8000이하입니다.
+//n은 1 이상, 25이하인 자연수입니다.
+//입출력 예
+//      s	        n	    result
+//      "AB"	    1	    "BC"
+//      "z"	        1	    "a"
+//      "a B z"	    4	    "e F d"
+
+    //시저 암호
+    public String solution13(String s, int n) {
+        String answer = "";
+//        아스키 코드 : 65 A ~ 90 Z, 97 a ~ 122 z  90->65  122->97  차 26개
+        char[] charArr = s.toCharArray();
+        for (int i = 0; i < charArr.length; i++) {
+            if (charArr[i] == ' ')
+                continue;
+            if (Character.isUpperCase(charArr[i]))
+                charArr[i] = (char) ((charArr[i] - 'A' + n) % 26 + 'A');
+            if (Character.isLowerCase(charArr[i]))
+                charArr[i] = (char) ((charArr[i] - 'a' + n) % 26 + 'a');
+        }
+        for (char i : charArr) {
+            answer += i;
+        }
+        return answer;
+    }
+//    Character.isUpperCase() 얘가 대문자 알려줌
+//    Character.isLowerCase() 얘가 소문자 알려줌
+//    toUpperCase()
+//    toLowerCase()
+
+
+//문제 설명
+//카카오에 입사한 신입 개발자 네오는 "카카오계정개발팀"에 배치되어, 카카오 서비스에 가입하는 유저들의 아이디를 생성하는 업무를 담당하게 되었습니다. "네오"에게 주어진 첫 업무는 새로 가입하는 유저들이 카카오 아이디 규칙에 맞지 않는 아이디를 입력했을 때, 입력된 아이디와 유사하면서 규칙에 맞는 아이디를 추천해주는 프로그램을 개발하는 것입니다.
+//다음은 카카오 아이디의 규칙입니다.
+//
+//아이디의 길이는 3자 이상 15자 이하여야 합니다.
+//아이디는 알파벳 소문자, 숫자, 빼기(-), 밑줄(_), 마침표(.) 문자만 사용할 수 있습니다.
+//단, 마침표(.)는 처음과 끝에 사용할 수 없으며 또한 연속으로 사용할 수 없습니다.
+//"네오"는 다음과 같이 7단계의 순차적인 처리 과정을 통해 신규 유저가 입력한 아이디가 카카오 아이디 규칙에 맞는 지 검사하고 규칙에 맞지 않은 경우 규칙에 맞는 새로운 아이디를 추천해 주려고 합니다.
+//신규 유저가 입력한 아이디가 new_id 라고 한다면,
+//
+//1단계 new_id의 모든 대문자를 대응되는 소문자로 치환합니다.
+//2단계 new_id에서 알파벳 소문자, 숫자, 빼기(-), 밑줄(_), 마침표(.)를 제외한 모든 문자를 제거합니다.
+//3단계 new_id에서 마침표(.)가 2번 이상 연속된 부분을 하나의 마침표(.)로 치환합니다.
+//4단계 new_id에서 마침표(.)가 처음이나 끝에 위치한다면 제거합니다.
+//5단계 new_id가 빈 문자열이라면, new_id에 "a"를 대입합니다.
+//6단계 new_id의 길이가 16자 이상이면, new_id의 첫 15개의 문자를 제외한 나머지 문자들을 모두 제거합니다.
+//     만약 제거 후 마침표(.)가 new_id의 끝에 위치한다면 끝에 위치한 마침표(.) 문자를 제거합니다.
+//7단계 new_id의 길이가 2자 이하라면, new_id의 마지막 문자를 new_id의 길이가 3이 될 때까지 반복해서 끝에 붙입니다.
+//예를 들어, new_id 값이 "...!@BaT#*..y.abcdefghijklm" 라면, 위 7단계를 거치고 나면 new_id는 아래와 같이 변경됩니다.
+//
+//1단계 대문자 'B'와 'T'가 소문자 'b'와 't'로 바뀌었습니다.
+//"...!@BaT#*..y.abcdefghijklm" → "...!@bat#*..y.abcdefghijklm"
+//
+//2단계 '!', '@', '#', '*' 문자가 제거되었습니다.
+//"...!@bat#*..y.abcdefghijklm" → "...bat..y.abcdefghijklm"
+//
+//3단계 '...'와 '..' 가 '.'로 바뀌었습니다.
+//"...bat..y.abcdefghijklm" → ".bat.y.abcdefghijklm"
+//
+//4단계 아이디의 처음에 위치한 '.'가 제거되었습니다.
+//".bat.y.abcdefghijklm" → "bat.y.abcdefghijklm"
+//
+//5단계 아이디가 빈 문자열이 아니므로 변화가 없습니다.
+//"bat.y.abcdefghijklm" → "bat.y.abcdefghijklm"
+//
+//6단계 아이디의 길이가 16자 이상이므로, 처음 15자를 제외한 나머지 문자들이 제거되었습니다.
+//"bat.y.abcdefghijklm" → "bat.y.abcdefghi"
+//
+//7단계 아이디의 길이가 2자 이하가 아니므로 변화가 없습니다.
+//"bat.y.abcdefghi" → "bat.y.abcdefghi"
+//
+//따라서 신규 유저가 입력한 new_id가 "...!@BaT#*..y.abcdefghijklm"일 때, 네오의 프로그램이 추천하는 새로운 아이디는 "bat.y.abcdefghi" 입니다.
+//
+//[문제]
+//신규 유저가 입력한 아이디를 나타내는 new_id가 매개변수로 주어질 때, "네오"가 설계한 7단계의 처리 과정을 거친 후의 추천 아이디를 return 하도록 solution 함수를 완성해 주세요.
+//
+//[제한사항]
+//new_id는 길이 1 이상 1,000 이하인 문자열입니다.
+//new_id는 알파벳 대문자, 알파벳 소문자, 숫자, 특수문자로 구성되어 있습니다.
+//new_id에 나타날 수 있는 특수문자는 -_.~!@#$%^&*()=+[{]}:?,<>/ 로 한정됩니다.
+//
+//[입출력 예]
+//no	new_id	                        result
+//예1	"...!@BaT#*..y.abcdefghijklm"	"bat.y.abcdefghi"
+//예2	"z-+.^."	"z--"
+//예3	"=.="	"aaa"
+//예4	"123_.def"	"123_.def"
+//예5	"abcdefghijklmn.p"	            "abcdefghijklmn"
+//입출력 예에 대한 설명
+//입출력 예 #1
+//문제의 예시와 같습니다.
+//
+//입출력 예 #2
+//7단계를 거치는 동안 new_id가 변화하는 과정은 아래와 같습니다.
+//
+//1단계 변화 없습니다.
+//2단계 "z-+.^." → "z-.."
+//3단계 "z-.." → "z-."
+//4단계 "z-." → "z-"
+//5단계 변화 없습니다.
+//6단계 변화 없습니다.
+//7단계 "z-" → "z--"
+//
+//입출력 예 #3
+//7단계를 거치는 동안 new_id가 변화하는 과정은 아래와 같습니다.
+//
+//1단계 변화 없습니다.
+//2단계 "=.=" → "."
+//3단계 변화 없습니다.
+//4단계 "." → "" (new_id가 빈 문자열이 되었습니다.)
+//5단계 "" → "a"
+//6단계 변화 없습니다.
+//7단계 "a" → "aaa"
+//
+//입출력 예 #4
+//1단계에서 7단계까지 거치는 동안 new_id("123_.def")는 변하지 않습니다. 즉, new_id가 처음부터 카카오의 아이디 규칙에 맞습니다.
+//
+//입출력 예 #5
+//1단계 변화 없습니다.
+//2단계 변화 없습니다.
+//3단계 변화 없습니다.
+//4단계 변화 없습니다.
+//5단계 변화 없습니다.
+//6단계 "abcdefghijklmn.p" → "abcdefghijklmn." → "abcdefghijklmn"
+//7단계 변화 없습니다.
+
+    //신규 아이디 추천
+
+    public String solution14(String new_id) {
+        String answer;
+
+//        1단계 new_id의 모든 대문자를 대응되는 소문자로 치환합니다.
+        answer = new_id.toLowerCase();
+        System.out.println(answer);
+
+//        2단계 new_id에서 알파벳 소문자, 숫자, 빼기(-), 밑줄(_), 마침표(.)를 제외한 모든 문자를 제거합니다.
+//        answer = answer.replaceAll("[^a-z0-9-_.$]", "");
+        for (int i = 0; i < new_id.length(); i++) {
+            char ch = new_id.charAt(i);
+            if (Character.isAlphabetic(ch) ||
+                    Character.isDigit(ch) ||
+                    ch == '-' || ch == '_' || ch == '.')
+                answer += ch;
+        }
+        System.out.println(answer);
+
+//        3단계 new_id에서 마침표(.)가 2번 이상 연속된 부분을 하나의 마침표(.)로 치환합니다.
+//        answer = answer.replaceAll("[.]{2,}", ".");
+        while (answer.indexOf("..") != -1)
+            answer = answer.replace("..", ".");
+        System.out.println(answer);
+
+//        4단계 new_id에서 마침표(.)가 처음이나 끝에 위치한다면 제거합니다.
+//        if (answer.indexOf(".") == 0 ) answer = answer.substring(1, answer.length()-1);
+//        if (answer.lastIndexOf(".") == answer.length()-1) answer = answer.substring(0, answer.length()-2);
+        if (!answer.isEmpty() && answer.charAt(0) == '.')
+            answer = answer.substring(1);
+        if (!answer.isEmpty() && answer.charAt(answer.length() - 1) == '.')
+            answer = answer.substring(0, answer.length() - 1);
+        System.out.println(answer);
+//        시작과 끝 (.)제거 replace("^[.]|[.]$")
+
+//        5단계 new_id가 빈 문자열이라면, new_id에 "a"를 대입합니다.
+        if (answer.isEmpty())
+            answer += "a";
+        System.out.println(answer);
+
+//        6단계 new_id의 길이가 16자 이상이면, new_id의 첫 15개의 문자를 제외한 나머지 문자들을 모두 제거합니다.
+//             만약 제거 후 마침표(.)가 new_id의 끝에 위치한다면 끝에 위치한 마침표(.) 문자를 제거합니다.
+//        if (answer.length() >= 16)
+//            answer = answer.substring(0, 15);
+//        if (answer.lastIndexOf(".") == answer.length()-1) answer = answer.substring(0, answer.length()-2);
+//        System.out.println(answer);
+        if (answer.length() > 15) {
+            answer = answer.substring(0, 15);
+            if (answer.charAt(answer.length() - 1) == '.')
+                answer = answer.substring(0, answer.length() - 1);
+        }
+        System.out.println(answer);
+
+//        7단계 new_id의 길이가 2자 이하라면, new_id의 마지막 문자를 new_id의 길이가 3이 될 때까지 반복해서 끝에 붙입니다.
+        while (answer.length() < 3)
+            answer += answer.charAt(answer.length() - 1);
+
+        return answer;
+    }
+
+//    문제 설명
+//두 정수 left와 right가 매개변수로 주어집니다. left부터 right까지의 모든 수들 중에서, 약수의 개수가 짝수인 수는 더하고, 약수의 개수가 홀수인 수는 뺀 수를 return 하도록 solution 함수를 완성해주세요.
+//
+//제한사항
+//1 ≤ left ≤ right ≤ 1,000
+//입출력 예
+//      left	right	result
+//      13	    17	    43
+//      24	    27	    52
+//입출력 예 설명
+//입출력 예 #1
+//
+//다음 표는 13부터 17까지의 수들의 약수를 모두 나타낸 것입니다.
+//          수	        약수	            약수의 개수
+//          13	        1, 13	            2
+//          14	        1, 2, 7, 14	        4
+//          15	        1, 3, 5, 15	        4
+//          16	        1, 2, 4, 8, 16	    5
+//          17	        1, 17	            2
+//따라서, 13 + 14 + 15 - 16 + 17 = 43을 return 해야 합니다.
+//입출력 예 #2
+//
+//다음 표는 24부터 27까지의 수들의 약수를 모두 나타낸 것입니다.
+//수	약수	약수의 개수
+//24	1, 2, 3, 4, 6, 8, 12, 24	8
+//25	1, 5, 25	3
+//26	1, 2, 13, 26	4
+//27	1, 3, 9, 27	4
+//따라서, 24 - 25 + 26 + 27 = 52를 return 해야 합니다.
+
+
+//    약수의 개수와 덧셈
+    public int solution15(int left, int right) {
+        int answer = 999999;
+
+//        left ~ right까지의 모든 수들
+//        들어간 숫자만큼 반복문 돌아가면서 i로 나눈 나머지가 0인 애들을 배열에 몰아놓거나 count++ 하면 갯수가 나온다
+//        그 갯수가 even 짝수인지, odds 홀수인지 판별해서 연산하면 답이 나올 것 같음
+
+        //        준비물 준비
+        int NumberCount = (right-left) + 1;
+        int[] iArr = new int[NumberCount];
+        int even = 0;
+        int odds = 0;
+
+        for (int i = 0; i < NumberCount; i++) {
+            iArr[i] = left + i;
+        }
+        for (int i = 0; i < NumberCount; i++) {
+            System.out.printf("[%d]",iArr[i]);
+        }
+        
+//        몇개의 숫자가 올 지 모르니 가변 배열 필요함
+        ArrayList<Integer> iList = new ArrayList<>();
+
+        for (int i = 0; i < iArr.length; i++) {
+            for (int j = 1; j <= iArr[i]; j++) {
+                if(iArr[i] % j == 0)
+                    even++;
+            }
+            for (int k = 1; k <= iArr[i]; k++) {
+                if(iArr[i] % k == 1)
+                    odds++;
+            }
+        }
+
+
+
+
+
+        for (int i = 0; i < 2; i++) {
+
+        }
+
+
+        System.out.println();
+        return answer;
+    }
 
     public static void main(String[] args) {
-        String[] a = {"sun", "bed", "car"};
-        int n = 1;
-//        int[] b = {31, 10, 45, 1, 6, 19};
+        algo method = new algo();
 
+        int left = 13;
+        int right = 17;
 
-        String[] result = solution9(a, n);
+        System.out.println(method.solution15(left, right));
 
-        for (int i = 0; i < result.length; i++) {
-            System.out.printf("[%s]",result[i]);
-        }
-//        System.out.println(Arrays.toString(solution5(a)));
     }
+
+
 }
+
+
