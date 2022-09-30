@@ -1121,10 +1121,10 @@ public class algo {
     //신규 아이디 추천
 
     public String solution14(String new_id) {
-        String answer;
+        StringBuilder answer;
 
 //        1단계 new_id의 모든 대문자를 대응되는 소문자로 치환합니다.
-        answer = new_id.toLowerCase();
+        answer = new StringBuilder(new_id.toLowerCase());
         System.out.println(answer);
 
 //        2단계 new_id에서 알파벳 소문자, 숫자, 빼기(-), 밑줄(_), 마침표(.)를 제외한 모든 문자를 제거합니다.
@@ -1134,29 +1134,29 @@ public class algo {
             if (Character.isAlphabetic(ch) ||
                     Character.isDigit(ch) ||
                     ch == '-' || ch == '_' || ch == '.')
-                answer += ch;
+                answer.append(ch);
         }
         System.out.println(answer);
 
 //        3단계 new_id에서 마침표(.)가 2번 이상 연속된 부분을 하나의 마침표(.)로 치환합니다.
 //        answer = answer.replaceAll("[.]{2,}", ".");
-        while (answer.indexOf("..") != -1)
-            answer = answer.replace("..", ".");
+        while (answer.toString().contains(".."))
+            answer = new StringBuilder(answer.toString().replace("..", "."));
         System.out.println(answer);
 
 //        4단계 new_id에서 마침표(.)가 처음이나 끝에 위치한다면 제거합니다.
 //        if (answer.indexOf(".") == 0 ) answer = answer.substring(1, answer.length()-1);
 //        if (answer.lastIndexOf(".") == answer.length()-1) answer = answer.substring(0, answer.length()-2);
-        if (!answer.isEmpty() && answer.charAt(0) == '.')
-            answer = answer.substring(1);
-        if (!answer.isEmpty() && answer.charAt(answer.length() - 1) == '.')
-            answer = answer.substring(0, answer.length() - 1);
+        if ((answer.length() > 0) && answer.charAt(0) == '.')
+            answer = new StringBuilder(answer.substring(1));
+        if ((answer.length() > 0) && answer.charAt(answer.length() - 1) == '.')
+            answer = new StringBuilder(answer.substring(0, answer.length() - 1));
         System.out.println(answer);
 //        시작과 끝 (.)제거 replace("^[.]|[.]$")
 
 //        5단계 new_id가 빈 문자열이라면, new_id에 "a"를 대입합니다.
-        if (answer.isEmpty())
-            answer += "a";
+        if (answer.length() == 0)
+            answer.append("a");
         System.out.println(answer);
 
 //        6단계 new_id의 길이가 16자 이상이면, new_id의 첫 15개의 문자를 제외한 나머지 문자들을 모두 제거합니다.
@@ -1166,17 +1166,17 @@ public class algo {
 //        if (answer.lastIndexOf(".") == answer.length()-1) answer = answer.substring(0, answer.length()-2);
 //        System.out.println(answer);
         if (answer.length() > 15) {
-            answer = answer.substring(0, 15);
+            answer = new StringBuilder(answer.substring(0, 15));
             if (answer.charAt(answer.length() - 1) == '.')
-                answer = answer.substring(0, answer.length() - 1);
+                answer = new StringBuilder(answer.substring(0, answer.length() - 1));
         }
         System.out.println(answer);
 
 //        7단계 new_id의 길이가 2자 이하라면, new_id의 마지막 문자를 new_id의 길이가 3이 될 때까지 반복해서 끝에 붙입니다.
         while (answer.length() < 3)
-            answer += answer.charAt(answer.length() - 1);
+            answer.append(answer.charAt(answer.length() - 1));
 
-        return answer;
+        return answer.toString();
     }
 
 //    문제 설명
@@ -1212,47 +1212,652 @@ public class algo {
 
 //    약수의 개수와 덧셈
     public int solution15(int left, int right) {
-        int answer = 999999;
-
-//        left ~ right까지의 모든 수들
-//        들어간 숫자만큼 반복문 돌아가면서 i로 나눈 나머지가 0인 애들을 배열에 몰아놓거나 count++ 하면 갯수가 나온다
-//        그 갯수가 even 짝수인지, odds 홀수인지 판별해서 연산하면 답이 나올 것 같음
-
+        int answer = 0;
+        
+//        일단 left~right까지 연속되는 수를 배열로 만들어야 연산하기가 편하다
+//        리턴값으로 원하는건 int 하나 뿐이므로 홀짝인지 확인할 값이 들어갈 변수 한개만 있으면 되겠다
+        
         //        준비물 준비
         int NumberCount = (right-left) + 1;
         int[] iArr = new int[NumberCount];
-        int even = 0;
-        int odds = 0;
 
         for (int i = 0; i < NumberCount; i++) {
             iArr[i] = left + i;
         }
-        for (int i = 0; i < NumberCount; i++) {
-            System.out.printf("[%d]",iArr[i]);
-        }
-        
-//        몇개의 숫자가 올 지 모르니 가변 배열 필요함
-        ArrayList<Integer> iList = new ArrayList<>();
+//        배열 만들기 끝
+//        배열 속의 수를 i=1 i로 나눈 나머지가 0이 되는 숫자를 카운트에 += 한 다음에 이 카운트가 짝수면 int 변수에 += 해주고 홀수면 -= 해준다
 
         for (int i = 0; i < iArr.length; i++) {
+//            j 반복문이 끝나면 배열 원소 하나의 짝수 홀수 갯수 카운트가 끝난 것이므로 초기화 시켜준다
+            int count = 0;
             for (int j = 1; j <= iArr[i]; j++) {
-                if(iArr[i] % j == 0)
-                    even++;
+                if(iArr[i] % j == 0) {
+                    count ++;
+                }
             }
-            for (int k = 1; k <= iArr[i]; k++) {
-                if(iArr[i] % k == 1)
-                    odds++;
-            }
+//            초기화 전 j의 반복으로 얻어낸 값을 최종 리턴값에 연산시켜줘야 한다
+            if (count % 2 == 0)
+                answer += iArr[i];
+            else
+                answer -= iArr[i];
         }
 
+        return answer;
+    }
+    
+//    다른 분의 풀이
+//        public int solution(int left, int right) {
+//        int answer = 0;
+//
+//        for (int i=left;i<=right;i++) {
+//            //제곱수인 경우 약수의 개수가 홀수
+//            if (i % Math.sqrt(i) == 0) {
+//                answer -= i;
+//            }
+//            //제곱수가 아닌 경우 약수의 개수가 짝수
+//            else {
+//                answer += i;
+//            }
+//        }
+//
+//        return answer;
+//    }
+//    천잰가?
 
 
+//문제 설명
+//정수 n을 입력받아 n의 약수를 모두 더한 값을 리턴하는 함수, solution을 완성해주세요.
+//
+//제한 사항
+//n은 0 이상 3000이하인 정수입니다.
+//입출력 예
+//n	    return
+//12	28
+//5	    6
+//입출력 예 설명
+//입출력 예 #1
+//12의 약수는 1, 2, 3, 4, 6, 12입니다. 이를 모두 더하면 28입니다.
+//
+//입출력 예 #2
+//5의 약수는 1, 5입니다. 이를 모두 더하면 6입니다.
+
+    //    약수의 합
+    public int solution16(int n) {
+        int answer = 0;
+        ArrayList<Integer> yaksuList = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            if(n % i == 0)
+                yaksuList.add(i);
+        }
+        for(int num:yaksuList) answer+=num;
+        return answer;
+    }
+    
+//    다른 분의 풀이
+//    class SumDivisor {
+//    public int sumDivisor(int num) {
+//        int answer = 0;
+//            for(int i = 1; i <= num/2; i++){
+//        if(num%i == 0) answer += i;
+//      }
+//        return answer+num;
+//    }
+//
+//    // 아래는 테스트로 출력해 보기 위한 코드입니다.
+//    public static void main(String[] args) {
+//        SumDivisor c = new SumDivisor();
+//        System.out.println(c.sumDivisor(12));
+//    }
+//}
 
 
-        for (int i = 0; i < 2; i++) {
+//    예산
+//문제 설명
+//S사에서는 각 부서에 필요한 물품을 지원해 주기 위해 부서별로 물품을 구매하는데 필요한 금액을 조사했습니다. 그러나, 전체 예산이 정해져 있기 때문에 모든 부서의 물품을 구매해 줄 수는 없습니다. 그래서 최대한 많은 부서의 물품을 구매해 줄 수 있도록 하려고 합니다.
+//
+//물품을 구매해 줄 때는 각 부서가 신청한 금액만큼을 모두 지원해 줘야 합니다. 예를 들어 1,000원을 신청한 부서에는 정확히 1,000원을 지원해야 하며, 1,000원보다 적은 금액을 지원해 줄 수는 없습니다.
+//
+//부서별로 신청한 금액이 들어있는 배열 d와 예산 budget이 매개변수로 주어질 때, 최대 몇 개의 부서에 물품을 지원할 수 있는지 return 하도록 solution 함수를 완성해주세요.
+//
+//제한사항
+//d는 부서별로 신청한 금액이 들어있는 배열이며, 길이(전체 부서의 개수)는 1 이상 100 이하입니다.
+//d의 각 원소는 부서별로 신청한 금액을 나타내며, 부서별 신청 금액은 1 이상 100,000 이하의 자연수입니다.
+//budget은 예산을 나타내며, 1 이상 10,000,000 이하의 자연수입니다.
+//입출력 예
+//d	budget	result
+//[1,3,2,5,4]	9	3
+//[2,2,3,3]	10	4
+//입출력 예 설명
+//입출력 예 #1
+//각 부서에서 [1원, 3원, 2원, 5원, 4원]만큼의 금액을 신청했습니다. 만약에, 1원, 2원, 4원을 신청한 부서의 물품을 구매해주면 예산 9원에서 7원이 소비되어 2원이 남습니다. 항상 정확히 신청한 금액만큼 지원해 줘야 하므로 남은 2원으로 나머지 부서를 지원해 주지 않습니다. 위 방법 외에 3개 부서를 지원해 줄 방법들은 다음과 같습니다.
+//
+//1원, 2원, 3원을 신청한 부서의 물품을 구매해주려면 6원이 필요합니다.
+//1원, 2원, 5원을 신청한 부서의 물품을 구매해주려면 8원이 필요합니다.
+//1원, 3원, 4원을 신청한 부서의 물품을 구매해주려면 8원이 필요합니다.
+//1원, 3원, 5원을 신청한 부서의 물품을 구매해주려면 9원이 필요합니다.
+//3개 부서보다 더 많은 부서의 물품을 구매해 줄 수는 없으므로 최대 3개 부서의 물품을 구매해 줄 수 있습니다.
+//
+//입출력 예 #2
+//모든 부서의 물품을 구매해주면 10원이 됩니다. 따라서 최대 4개 부서의 물품을 구매해 줄 수 있습니다.
 
+    public int solution17(int[] d, int budget) {
+        int answer = 0;
+        Arrays.sort(d);
+        int count = 0;
+        for (int i = 0; i < d.length; i++) {
+            if (answer + d[i] > budget) break;
+            answer += d[i];
+            count++;
+        }
+        return count;
+    }
+
+//    다른 분이 푼 방법
+//      public int solution(int[] d, int budget) {
+//      int answer = 0;
+//
+//        Arrays.sort(d);
+//
+//        for (int i = 0; i < d.length; i++) {
+//            budget -= d[i];
+//
+//            if (budget < 0) break;
+//
+//            answer++;
+//        }
+//
+//        return answer;
+//  }
+//    빼주는 방법도 있네
+
+
+//    최대공약수와 최소공배수
+//문제 설명
+//두 수를 입력받아 두 수의 최대공약수와 최소공배수를 반환하는 함수, solution을 완성해 보세요. 배열의 맨 앞에 최대공약수,
+// 그다음 최소공배수를 넣어 반환하면 됩니다. 예를 들어 두 수 3, 12의 최대공약수는 3, 최소공배수는 12이므로 solution(3, 12)는 [3, 12]를 반환해야 합니다.
+//
+//제한 사항
+//두 수는 1이상 1000000이하의 자연수입니다.
+//입출력 예
+//      n	        m	        return
+//      3	        12	        [3, 12]
+//      2	        5	        [1, 10]
+//입출력 예 설명
+//입출력 예 #1
+//위의 설명과 같습니다.
+//
+//입출력 예 #2
+//자연수 2와 5의 최대공약수는 1, 최소공배수는 10이므로 [1, 10]을 리턴해야 합니다.
+
+    public int[] solution18(int n, int m) {
+        int gCD = 1, lCM = 0, nMinDivisor = n, mMinDivisor = m, maxNumber = Math.max(n, m);
+        int index = 2;
+        while(maxNumber != index) {
+            if(nMinDivisor % index == 0 && mMinDivisor % index == 0) {
+                gCD *= index;
+                nMinDivisor /= index;
+                mMinDivisor /= index;
+            }
+            else
+                index++;
+        }
+        lCM = gCD * nMinDivisor * mMinDivisor;
+        return new int[]{gCD, lCM};
+    }
+
+//    다른 사람의 풀이
+//    public int[] gcdlcm(int a, int b) {
+//        int[] answer = new int[2];
+//
+//        answer[0] = gcd(a,b);
+//        answer[1] = (a*b)/answer[0];
+//        return answer;
+//    }
+//
+//    public static int gcd(int p, int q)
+//    {
+//        if (q == 0) return p;
+//        return gcd(q, p%q);
+//    }
+//
+//    // 아래는 테스트로 출력해 보기 위한 코드입니다.
+//    public static void main(String[] args) {
+//        TryHelloWorld c = new TryHelloWorld();
+//        System.out.println(Arrays.toString(c.gcdlcm(3, 12)));
+//    }
+//    유클리드 호제법 사용해서 풀기
+
+
+//문제 설명
+//배열 array의 i번째 숫자부터 j번째 숫자까지 자르고 정렬했을 때, k번째에 있는 수를 구하려 합니다.
+//
+//예를 들어 array가 [1, 5, 2, 6, 3, 7, 4], i = 2, j = 5, k = 3이라면
+//
+//array의 2번째부터 5번째까지 자르면 [5, 2, 6, 3]입니다.
+//1에서 나온 배열을 정렬하면 [2, 3, 5, 6]입니다.
+//2에서 나온 배열의 3번째 숫자는 5입니다.
+//배열 array, [i, j, k]를 원소로 가진 2차원 배열 commands가 매개변수로 주어질 때,
+// commands의 모든 원소에 대해 앞서 설명한 연산을 적용했을 때 나온 결과를 배열에 담아 return 하도록 solution 함수를 작성해주세요.
+//
+//제한사항
+//array의 길이는 1 이상 100 이하입니다.
+//array의 각 원소는 1 이상 100 이하입니다.
+//commands의 길이는 1 이상 50 이하입니다.
+//commands의 각 원소는 길이가 3입니다.
+//          입출력 예
+//          array	                        commands	                            return
+//          [1, 5, 2, 6, 3, 7, 4]	        [[2, 5, 3], [4, 4, 1], [1, 7, 3]]	    [5, 6, 3]
+//입출력 예 설명
+//[1, 5, 2, 6, 3, 7, 4]를 2번째부터 5번째까지 자른 후 정렬합니다. [2, 3, 5, 6]의 세 번째 숫자는 5입니다.
+//[1, 5, 2, 6, 3, 7, 4]를 4번째부터 4번째까지 자른 후 정렬합니다. [6]의 첫 번째 숫자는 6입니다.
+//[1, 5, 2, 6, 3, 7, 4]를 1번째부터 7번째까지 자릅니다. [1, 2, 3, 4, 5, 6, 7]의 세 번째 숫자는 3입니다.
+
+    //    K번째수
+    public int[] solution19(int[] array, int[][] commands) {
+        int[] answer = new int[commands.length];
+
+//        쉽게 낼 수 있는 문제를 정말 복잡하게 해놓음
+//        i = slice index start, j = slice index end, k = sorting after search index number
+//        두번째 2차원 배열은 그냥 도구처럼 쓰라는 의도의 문제인 것 같다
+        for (int i = 0; i < commands.length; i++) {
+            int[] copyArr = Arrays.copyOfRange(array, commands[i][0]-1, commands[i][1]);
+            Arrays.sort(copyArr);
+            answer[i] = copyArr[commands[i][2]-1];
+        }
+        return answer;
+    }
+    
+//    다른 분이 한 거
+//    public int[] solution(int[] array, int[][] commands) {
+//        int n = 0;
+//        int[] ret = new int[commands.length];
+//
+//        while(n < commands.length){
+//            int m = commands[n][1] - commands[n][0] + 1;
+//
+//            if(m == 1){
+//                ret[n] = array[commands[n++][0]-1];
+//                continue;
+//            }
+//
+//            int[] a = new int[m];
+//            int j = 0;
+//            for(int i = commands[n][0]-1; i < commands[n][1]; i++)
+//                a[j++] = array[i];
+//
+//            sort(a, 0, m-1);
+//
+//            ret[n] = a[commands[n++][2]-1];
+//        }
+//
+//        return ret;
+//    }
+//
+//    void sort(int[] a, int left, int right){
+//        int pl = left;
+//        int pr = right;
+//        int x = a[(pl+pr)/2];
+//
+//        do{
+//            while(a[pl] < x) pl++;
+//            while(a[pr] > x) pr--;
+//            if(pl <= pr){
+//                int temp = a[pl];
+//                a[pl] = a[pr];
+//                a[pr] = temp;
+//                pl++;
+//                pr--;
+//            }
+//        }while(pl <= pr);
+//
+//        if(left < pr) sort(a, left, pr);
+//        if(right > pl) sort(a, pl, right);
+//    }
+//    퀵 정렬로 구현하심 속도가 아주 빠름
+
+
+//문제 설명
+//자연수 n이 매개변수로 주어집니다. n을 x로 나눈 나머지가 1이 되도록 하는 가장 작은 자연수 x를 return 하도록 solution 함수를 완성해주세요. 답이 항상 존재함은 증명될 수 있습니다.
+//
+//제한사항
+//3 ≤ n ≤ 1,000,000
+//입출력 예
+//n	result
+//10	3
+//12	11
+//입출력 예 설명
+//입출력 예 #1
+//
+//10을 3으로 나눈 나머지가 1이고, 3보다 작은 자연수 중에서 문제의 조건을 만족하는 수가 없으므로, 3을 return 해야 합니다.
+//입출력 예 #2
+//
+//12를 11로 나눈 나머지가 1이고, 11보다 작은 자연수 중에서 문제의 조건을 만족하는 수가 없으므로, 11을 return 해야 합니다.
+
+    //    나머지가 1이 되는 수 찾기
+    public int solution20(int n) {
+        int answer = 0;
+
+        int x = 2;
+        int result = 0;
+        while(n > x) {
+            result = n % x;
+            if (result == 1) {
+                answer = x;
+                break;
+            }
+            x++;
+        }
+        return answer;
+    }
+
+//문제 설명
+//1부터 입력받은 숫자 n 사이에 있는 소수의 개수를 반환하는 함수, solution을 만들어 보세요.
+//
+//소수는 1과 자기 자신으로만 나누어지는 수를 의미합니다.
+//(1은 소수가 아닙니다.)
+//
+//제한 조건
+//n은 2이상 1000000이하의 자연수입니다.
+//입출력 예
+//          n	result
+//          10	4
+//          5	3
+//입출력 예 설명
+//입출력 예 #1
+//1부터 10 사이의 소수는 [2,3,5,7] 4개가 존재하므로 4를 반환
+//
+//입출력 예 #2
+//1부터 5 사이의 소수는 [2,3,5] 3개가 존재하므로 3를 반환
+    //    소수 찾기
+    public int solution21(int n) {
+        int answer = 0;
+//    소수 문제가 왜 이렇게 많은지 모르겠네 소수성애자들인가
+        int index = 2;
+//    자기 자신이 소수일 수도 있으므로 index <= n
+        while(index <= n) {
+            if(isPrimeNumber(index)){
+                answer++;
+            }
+            index++;
+        }
+        return answer;
+    }
+
+// 소수 판별식을 만든다
+    public boolean isPrimeNumber (int n) {
+        if (0 == n || n == 1) return false;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+    
+//    다른 사람 풀이
+//        int numberOfPrime(int n) {
+//        int result = 0;
+//        for(int i=2; i<=n; i++){
+//        for(int j=2; j<=i; j++){
+//        if(j == i){
+//            ++result;
+//        } else if(i%j == 0){
+//            break;
+//        }
+//      }
+//    }
+//
+//        return result;
+//    }
+//
+//    public static void main(String[] args) {
+//        NumOfPrime prime = new NumOfPrime();
+//        System.out.println( prime.numberOfPrime(10) );
+//    }
+//    허허
+    
+    
+    
+//    슈퍼 게임 개발자 오렐리는 큰 고민에 빠졌다. 그녀가 만든 프랜즈 오천성이 대성공을 거뒀지만, 요즘 신규 사용자의 수가 급감한 것이다.
+//    원인은 신규 사용자와 기존 사용자 사이에 스테이지 차이가 너무 큰 것이 문제였다.
+//
+//이 문제를 어떻게 할까 고민 한 그녀는 동적으로 게임 시간을 늘려서 난이도를 조절하기로 했다.
+// 역시 슈퍼 개발자라 대부분의 로직은 쉽게 구현했지만, 실패율을 구하는 부분에서 위기에 빠지고 말았다.
+// 오렐리를 위해 실패율을 구하는 코드를 완성하라.
+//
+//실패율은 다음과 같이 정의한다.
+//스테이지에 도달했으나 아직 클리어하지 못한 플레이어의 수 / 스테이지에 도달한 플레이어 수
+//전체 스테이지의 개수 N, 게임을 이용하는 사용자가 현재 멈춰있는 스테이지의 번호가 담긴 배열 stages가 매개변수로 주어질 때, 실패율이 높은 스테이지부터 내림차순으로 스테이지의 번호가 담겨있는 배열을 return 하도록 solution 함수를 완성하라.
+//
+//제한사항
+//스테이지의 개수 N은 1 이상 500 이하의 자연수이다.
+//stages의 길이는 1 이상 200,000 이하이다.
+//stages에는 1 이상 N + 1 이하의 자연수가 담겨있다.
+//각 자연수는 사용자가 현재 도전 중인 스테이지의 번호를 나타낸다.
+//단, N + 1 은 마지막 스테이지(N 번째 스테이지) 까지 클리어 한 사용자를 나타낸다.
+//만약 실패율이 같은 스테이지가 있다면 작은 번호의 스테이지가 먼저 오도록 하면 된다.
+//스테이지에 도달한 유저가 없는 경우 해당 스테이지의 실패율은 0 으로 정의한다.
+//입출력 예
+//          N	            stages	                        result
+//          5	            [2, 1, 2, 6, 2, 4, 3, 3]	    [3,4,2,1,5]
+//          4	            [4,4,4,4,4]	                    [4,1,2,3]
+//입출력 예 설명
+//입출력 예 #1
+//1번 스테이지에는 총 8명의 사용자가 도전했으며, 이 중 1명의 사용자가 아직 클리어하지 못했다. 따라서 1번 스테이지의 실패율은 다음과 같다.
+//
+//1 번 스테이지 실패율 : 1/8
+//2번 스테이지에는 총 7명의 사용자가 도전했으며, 이 중 3명의 사용자가 아직 클리어하지 못했다. 따라서 2번 스테이지의 실패율은 다음과 같다.
+//
+//2 번 스테이지 실패율 : 3/7
+//마찬가지로 나머지 스테이지의 실패율은 다음과 같다.
+//
+//3 번 스테이지 실패율 : 2/4
+//4번 스테이지 실패율 : 1/2
+//5번 스테이지 실패율 : 0/1
+//각 스테이지의 번호를 실패율의 내림차순으로 정렬하면 다음과 같다.
+//
+//[3,4,2,1,5]
+//입출력 예 #2
+//
+//모든 사용자가 마지막 스테이지에 있으므로 4번 스테이지의 실패율은 1이며 나머지 스테이지의 실패율은 0이다.
+//
+//[4,1,2,3]
+
+//    실패율
+    public int[] solution22(int N, int[] stages) {
+        int[] answer = new int[N];
+        HashMap<Integer, Float> failMap = new HashMap<>();
+        ArrayList<Integer> player = new ArrayList<>();
+        for (int stage : stages) {
+            player.add(stage);
+        }
+        for (int i :
+                player) {
+            System.out.printf("[%d]",i);
+        }
+        System.out.println();
+        for (int i = 0; i < N; i++) {
+            int successer = 0;
+            int failure = 0;
+            for (Integer integer : player) {
+                if (integer > i + 1) {
+                    successer += 1;
+                }
+                if (integer == i + 1) {
+                    failure += 1;
+                }
+            }
+            if (successer == 0 && failure == 0)
+                failMap.put(i+1, (float) 0);
+            else
+                failMap.put(i+1, (float) failure/(successer+failure));
+            System.out.printf("%dstage failure:%d\n",i+1, failure);
+            System.out.printf("%dstage successer:%d\n",i+1, successer);
+        }
+        for(Integer key:failMap.keySet()){
+            System.out.println("key : " + key + "   float value : " + failMap.get(key));
+        }
+//        예쁘게 잘 정리해줌
+//        이제 내림차순 정렬해서 보내주기만 하면 되는데 HashMap에 넣을 줄만 알지 쓸 줄 모른다 shit
+
+
+//        키로만 이루어진 list를 하나 만들어서 HashMap Object의 키를 가져와 담아준다
+        List<Integer> failMapkeyTable = new ArrayList<>(failMap.keySet());
+//        람다식으로 list의 sort 기능을 사용할건데 HashMap failMap의 value값을 기준으로 List의 failMapkeyTable 정렬해야한다
+//        익명함수로 failMap의 key에 해당하는 list failMapkeyTable의 value를 인자값으로 보내 해쉬맵 오브젝트의 o2키값으로 value값과 o1키값으로
+//        value값을 compareTo 해서 내림차순으로 비교해서 sort
+        failMapkeyTable.sort((o1, o2) -> failMap.get(o2).compareTo(failMap.get(o1)));
+
+//        잘 뒤집어졌는지 확인
+        for (Integer key : failMapkeyTable) {
+            System.out.print("Key : " + key);
+            System.out.println(", Val : " + failMap.get(key));
         }
 
+        for (int i = 0; i < answer.length; i++) {
+            answer[i] = failMapkeyTable.get(i);
+        }
+
+        return answer;
+    }
+
+//    다른 분이 만든 것    Comparable이 가지고 있는 compareTo 메소드를 내림차순용으로 오버라이드 하여 사용하기 위해 구현
+//    class Solution {
+//    public int[] solution(int N, int[] lastStages) {
+//        int nPlayers = lastStages.length;
+//        int[] nStagePlayers = new int[N + 2];
+//        for (int stage : lastStages) {
+//            nStagePlayers[stage] += 1;
+//        }
+//
+//        int remainingPlayers = nPlayers;
+//        List<Stage> stages = new ArrayList<>();
+//        for (int id = 1 ; id <= N; id++) {
+//            double failure = (double) nStagePlayers[id] / remainingPlayers;
+//            remainingPlayers -= nStagePlayers[id];
+//
+//            Stage s = new Stage(id, failure);
+//            stages.add(s);
+//        }
+//        Collections.sort(stages, Collections.reverseOrder());
+//
+//        int[] answer = new int[N];
+//        for (int i = 0; i < N; i++) {
+//            answer[i] = stages.get(i).id;
+//        }
+//        return answer;
+//    }
+//
+//    class Stage implements Comparable<Stage> {
+//        public int id;
+//        public double failure;
+//
+//        public Stage(int id_, double failure_) {
+//            id = id_;
+//            failure = failure_;
+//        }
+//
+//        @Override
+//        public int compareTo(Stage o) {
+//            if (failure < o.failure ) {
+//                return -1;
+//            }
+//            if (failure > o.failure ) {
+//                return 1;
+//            }
+//            return 0;
+//        }
+//    }
+//}
+//    오오...
+
+
+//문제 설명
+//점심시간에 도둑이 들어, 일부 학생이 체육복을 도난당했습니다. 다행히 여벌 체육복이 있는 학생이 이들에게 체육복을 빌려주려 합니다.
+// 학생들의 번호는 체격 순으로 매겨져 있어, 바로 앞번호의 학생이나 바로 뒷번호의 학생에게만 체육복을 빌려줄 수 있습니다.
+// 예를 들어, 4번 학생은 3번 학생이나 5번 학생에게만 체육복을 빌려줄 수 있습니다.
+// 체육복이 없으면 수업을 들을 수 없기 때문에 체육복을 적절히 빌려 최대한 많은 학생이 체육수업을 들어야 합니다.
+//
+//전체 학생의 수 n, 체육복을 도난당한 학생들의 번호가 담긴 배열 lost, 여벌의 체육복을 가져온 학생들의 번호가 담긴 배열 reserve가 매개변수로 주어질 때,
+// 체육수업을 들을 수 있는 학생의 최댓값을 return 하도록 solution 함수를 작성해주세요.
+//
+//제한사항
+//전체 학생의 수는 2명 이상 30명 이하입니다.
+//체육복을 도난당한 학생의 수는 1명 이상 n명 이하이고 중복되는 번호는 없습니다.
+//여벌의 체육복을 가져온 학생의 수는 1명 이상 n명 이하이고 중복되는 번호는 없습니다.
+//여벌 체육복이 있는 학생만 다른 학생에게 체육복을 빌려줄 수 있습니다.
+//여벌 체육복을 가져온 학생이 체육복을 도난당했을 수 있습니다. 이때 이 학생은 체육복을 하나만 도난당했다고 가정하며,
+// 남은 체육복이 하나이기에 다른 학생에게는 체육복을 빌려줄 수 없습니다.
+//입출력 예
+//      n	                lost	                reserve	            return
+//      5	                [2, 4]	                [1, 3, 5]	        5
+//      5	                [2, 4]	                [3]	                4
+//      3	                [3]	                    [1]	                2
+//입출력 예 설명
+//예제 #1
+//1번 학생이 2번 학생에게 체육복을 빌려주고, 3번 학생이나 5번 학생이 4번 학생에게 체육복을 빌려주면 학생 5명이 체육수업을 들을 수 있습니다.
+//
+//예제 #2
+//3번 학생이 2번 학생이나 4번 학생에게 체육복을 빌려주면 학생 4명이 체육수업을 들을 수 있습니다.
+
+//    체육복을 빌려줄 수 있는 조건1 index -1 || index + 1
+//    체육복을 빌려줄 수 있는 조건2 && have training wearable > 1
+//    제공되는 데이터 : 전체 학생 n, 도난당한 학생 lost 배열, 체육복 2벌이상 학생 reserve 배열
+//    최종 리턴값은 n - ((index -1 || index + 1) && have training wearable > 1) 이다
+//    여벌 체육복이 있는 사람이 도난 당했을 경우를 생각해 reserve 에 lost가 있을 경우 빼줘야 한다
+    
+    //    체육복
+    public int solution23(int n, int[] lost, int[] reserve) {
+        int answer = 0;
+        HashMap<Integer, Integer> lostPerson = new HashMap<>();
+        HashMap<Integer, Integer> havePerson = new HashMap<>();
+
+//        해쉬 맵에 넣어주기
+        for (int i = 0; i < lost.length; i++) {
+            lostPerson.put(i+1, lost[i]);
+        }
+        for (int i = 0; i < reserve.length; i++) {
+            havePerson.put(i+1, reserve[i]);
+        }
+        
+//        잘 들어갔나 확인
+        for (Integer values: lostPerson.values()) {
+            System.out.printf("[%d]", values);
+        }
+        System.out.println();
+        for (Integer values: havePerson.values()) {
+            System.out.printf("{%d}", values);
+        }
+
+//        체육복을 도둑맞은 사람 중에 여벌옷을 가지고 있던 사람이 있을 경우 맵에서 지운다
+        for (int i = 0; i < lostPerson.size(); i++) {
+            if(lostPerson.containsValue(havePerson.get(i+1)))
+                havePerson.remove(i+1);
+        }
+        
+//        잘 지워졌나 확인
+        System.out.println();
+        for (Integer values: havePerson.values()) {
+            System.out.printf("{%d}", values);
+        }
+        
+//        준비물은 갖추어졌으니 이제부터 풀면 된다
+        for (int i = 1; i < n+1; i++) {
+            // 여벌옷을 가진 사람 중 옷을 도둑맞은 사람의 앞 번호가 있을 경우
+            if (havePerson.containsKey(lostPerson.get(i)-1)) {
+                lostPerson.remove(i);
+            }
+            // 여벌옷을 가진 사람 중 옷을 도둑맞은 사람의 뒷 번호가 있을 경우
+            if (havePerson.containsKey(lostPerson.get(i)+1))
+                lostPerson.remove(i);
+        }
+
+//        여벌옷을 잘 빌렸을 경우 잃은 사람이 지워졌을테니 확인
+        System.out.println();
+        for (Integer values: havePerson.values()) {
+            System.out.printf("{%d}", values);
+        }
+
+//        총 학생 수에 lost.size와 reserve.size를 더한 값을 빼면 원하는 리턴값이 된다
+        answer = n - (lostPerson.size() + havePerson.size());
 
         System.out.println();
         return answer;
@@ -1260,15 +1865,12 @@ public class algo {
 
     public static void main(String[] args) {
         algo method = new algo();
-
-        int left = 13;
-        int right = 17;
-
-        System.out.println(method.solution15(left, right));
+        int n = 5;
+        int[] lost = {2, 4};
+        int[] reserve = {1, 3, 5};
+        System.out.printf("result : [%d]", method.solution23(n, lost, reserve));
 
     }
-
-
 }
 
 
